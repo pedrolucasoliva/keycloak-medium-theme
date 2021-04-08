@@ -1,0 +1,33 @@
+version: "3.7"
+
+services:
+  keycloak_db:
+    container_name: keycloak_db
+    hostname: keycloak_db
+    image: postgres
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=keycloak
+    volumes:
+      - keycloak_db:/var/lib/postgresql/data
+  keycloak:
+    container_name: keycloak
+    image: jboss/keycloak:latest
+    hostname: keycloak
+    ports:
+      - 8080:8080
+    environment:
+      - DB_VENDOR=POSTGRES
+      - DB_ADDR=keycloak_db
+      - DB_DATABASE=keycloak
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres
+      - KEYCLOAK_USER=admin
+      - KEYCLOAK_PASSWORD=admin
+    depends_on:
+      - keycloak_db
+    volumes:
+      - /home/pedro/keycloak-theme/medium-theme:/opt/jboss/keycloak/themes/medium-theme
+volumes:
+  keycloak_db:

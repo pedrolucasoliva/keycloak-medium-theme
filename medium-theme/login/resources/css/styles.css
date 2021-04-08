@@ -1,0 +1,10 @@
+.login-pf body {
+  background: none;
+  background-color: whitesmoke;
+}
+
+div.kc-logo-text {
+  background-image: url(../img/logo.png);
+  height: 150px;
+  width: 150px;
+}
